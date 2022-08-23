@@ -1,0 +1,16 @@
+{% extends 'flight_search/base.html' %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+<ul>
+    {% for s in seatclass %}
+    <li>
+        {{s.name}}
+    </li>
+    {% endfor %}
+
+</ul>
+
+
+{% endblock %}
