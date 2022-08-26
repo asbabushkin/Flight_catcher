@@ -13,6 +13,8 @@ def index(request):
             print(form.cleaned_data)
             form.save()
             return redirect('search_result')
+        else:
+            print('Smth wrong with form...')
 
     else:
         form = NewSearchForm()
