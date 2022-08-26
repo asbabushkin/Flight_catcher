@@ -3,14 +3,11 @@
 {% block content %}
 
 <h1>{{title}}</h1>
-<ul>
-    {% for s in seatclass %}
-    <li>
-        {{s.name}}
-    </li>
-    {% endfor %}
-
-</ul>
-
+<div>{{ form.non_field_errors }}</div>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Поиск</button>
+</form>
 
 {% endblock %}
