@@ -42,3 +42,12 @@ class AirportCodes(models.Model):
     def __str__(self):
         return self.airport_name
 
+
+class CityCodes(models.Model):
+    city_eng = models.CharField(max_length=50)
+    city_rus = models.CharField(max_length=50)
+    code_eng = models.CharField(max_length=3)
+    code_rus = models.CharField(max_length=3)
+
+    def __str__(self):
+        return self.city_eng
