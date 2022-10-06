@@ -28,3 +28,17 @@ class SearchResult(models.Model):
 
     def __str__(self):
         return f'search {self.search}'
+
+class AirportCodes(models.Model):
+    airport_name = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    iata_code = models.CharField(max_length=3)
+    icao_code = models.CharField(max_length=4)
+    Rus_code = models.CharField(max_length=3)
+    type = models.CharField(max_length=8)
+    webpage = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.airport_name
+
