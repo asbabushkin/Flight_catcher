@@ -1,46 +1,56 @@
 from django.db import models
 
 
-class Traveller(models.Model):
-    telegr_acc = models.CharField(max_length=50)
-    phone_num = models.CharField(max_length=20)
-    email = models.CharField(max_length=30)
+class AirportCode(models.Model):
+    airport_name = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    iata_code = models.CharField(max_length=3)
+    icao_code = models.CharField(max_length=4)
+    rus_code = models.CharField(max_length=3)
+    type = models.CharField(max_length=13)
+    webpage = models.URLField()
 
     def __str__(self):
-        return self.telegr_acc
+        return self.airport_name
 
 
-class SeatClass(models.Model):
-    name = models.CharField(max_length=20, null=False)
+class CityCode(models.Model):
+    city_eng = models.CharField(max_length=50)
+    city_rus = models.CharField(max_length=50)
+    code_eng = models.CharField(max_length=3)
+    code_rus = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.name
+        return self.city_eng
 
 
 class Search(models.Model):
+    # depature_city = models.ForeignKey(CityCode, on_delete=models.SET_DEFAULT, related_name='depature_city', null=False, default='deleted')
+    # dest_city = models.ForeignKey(CityCode, on_delete=models.SET_DEFAULT, related_name='dest_city', null=False, default='deleted')
     depature_city = models.CharField(max_length=50)
     dest_city = models.CharField(max_length=50)
     oneway_flight = models.BooleanField(default=False)
-    max_transhipment = models.SmallIntegerField()
-    arrival_date = models.DateField(null=False)
-    return_date = models.DateField()
+    max_transhipments = models.SmallIntegerField(default=0)
+    depart_date = models.DateField()
+    return_date = models.DateField(null=True)
     num_adults = models.SmallIntegerField()
-    num_infants = models.SmallIntegerField()
-    num_childs = models.SmallIntegerField()
+    num_children = models.SmallIntegerField(null=True)
     luggage = models.BooleanField(default=False)
-    seat_class = models.ForeignKey(SeatClass, null=True, on_delete=models.SET_NULL)
     search_init_date = models.DateTimeField(auto_now_add=True)
-    search_until_date = models.DateTimeField(null=False)
-    user_id = models.ForeignKey(Traveller, null=True, on_delete=models.SET_NULL)
+    telegr_acc = models.CharField(max_length=50)
+    phone_num = models.CharField(max_length=20, null=True)
+    email = models.CharField(max_length=30, null=True)
 
     def __str__(self):
         return f'{self.depature_city} - {self.dest_city}'
 
+
 class SearchResult(models.Model):
-    search_id = models.ForeignKey(Search, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     link = models.CharField(max_length=255)
     time = models.DateTimeField(auto_now_add=True)
+    search = models.ForeignKey('Search', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f'search {self.search_id}'
+        return f'search {self.search}'
