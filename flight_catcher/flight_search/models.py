@@ -7,9 +7,9 @@ class AirportCode(models.Model):
     city = models.CharField(max_length=50)
     iata_code = models.CharField(max_length=3)
     icao_code = models.CharField(max_length=4)
-    Rus_code = models.CharField(max_length=3)
-    type = models.CharField(max_length=8)
-    webpage = models.URLField(max_length=50)
+    rus_code = models.CharField(max_length=3)
+    type = models.CharField(max_length=13)
+    webpage = models.URLField()
 
     def __str__(self):
         return self.airport_name
@@ -26,8 +26,10 @@ class CityCode(models.Model):
 
 
 class Search(models.Model):
-    depature_city = models.ForeignKey(CityCode, on_delete=models.SET_DEFAULT, related_name='depature_city', null=False, default='deleted')
-    dest_city = models.ForeignKey(CityCode, on_delete=models.SET_DEFAULT, related_name='dest_city', null=False, default='deleted')
+    # depature_city = models.ForeignKey(CityCode, on_delete=models.SET_DEFAULT, related_name='depature_city', null=False, default='deleted')
+    # dest_city = models.ForeignKey(CityCode, on_delete=models.SET_DEFAULT, related_name='dest_city', null=False, default='deleted')
+    depature_city = models.CharField(max_length=50)
+    dest_city = models.CharField(max_length=50)
     oneway_flight = models.BooleanField(default=False)
     max_transhipments = models.SmallIntegerField(default=0)
     depart_date = models.DateField()
