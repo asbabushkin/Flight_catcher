@@ -1,6 +1,5 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
 from .models import *
 
 
@@ -27,6 +26,9 @@ class NewSearchForm(forms.ModelForm):
 
     def clean_depature_city(self):
         depature_city = self.cleaned_data['depature_city']
+        if not CityCode.objects.filter(city_rus=depature_city):
+            raise ValidationError('Город вылета не найден!')
+
         if len(depature_city) > 40:
             raise ValidationError('Длина превышает 40 символов')
         return depature_city
