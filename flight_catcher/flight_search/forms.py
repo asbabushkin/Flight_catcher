@@ -33,6 +33,15 @@ class NewSearchForm(forms.ModelForm):
             raise ValidationError('Длина превышает 40 символов')
         return depature_city
 
+    def clean_dest_city(self):
+        dest_city = self.cleaned_data['dest_city']
+        if not CityCode.objects.filter(city_rus=dest_city):
+            raise ValidationError('Город назначения не найден!')
+        return dest_city
+
+
+
+
     # depature = forms.CharField(min_length=2, max_length=50, strip=True, label='Откуда')
     # dest = forms.CharField(min_length=2, max_length=50, strip=True, label='Куда')
     # leave_date = forms.DateField(label='Вылет')
