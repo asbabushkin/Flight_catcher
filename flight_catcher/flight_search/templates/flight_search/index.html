@@ -4,11 +4,11 @@
 
 <h1>{{title}}</h1>
 <div>{{ form.non_field_errors }}</div>
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Поиск</button>
-</form>
+<!--<form action="" method="POST">-->
+<!--    {% csrf_token %}-->
+<!--    {{ form.as_p }}-->
+<!--    <button type="submit">Поиск</button>-->
+<!--</form>-->
 
 <form action="{% url 'home' %}" method="post">
     {% csrf_token %}

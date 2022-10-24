@@ -8,12 +8,12 @@ class NewSearchForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['depature_city'].label = 'Откуда'
         self.fields['dest_city'].label = 'Куда'
-        self.fields['oneway_flight'].label = 'В один конец'
+        #self.fields['oneway_flight'].label = 'В один конец'
         self.fields['max_transhipments'].label = 'Пересадок не более'
         self.fields['depart_date'].label = 'Дата вылета'
         self.fields['return_date'].label = 'Дата возвращения'
         self.fields['return_date'].required = False
-        self.fields['num_adults'].label = 'Взрослых пассажиров'
+        self.fields['num_adults'].label = 'Взрослых'
         self.fields['num_children'].label = 'Детей'
         self.fields['num_children'].required = False
         self.fields['luggage'].label = 'Багаж'
@@ -21,7 +21,7 @@ class NewSearchForm(forms.ModelForm):
 
     class Meta:
         model = Search
-        fields = ['depature_city', 'dest_city', 'oneway_flight', 'max_transhipments', 'depart_date', 'return_date',
+        fields = ['depature_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
                   'num_adults', 'num_children', 'luggage', 'telegr_acc']
 
     def clean_depature_city(self):
