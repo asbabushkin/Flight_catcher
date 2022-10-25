@@ -1,0 +1,9 @@
+body {
+    background: darkgrey;
+}
+
+form {
+    margin-left: 32%;
+    width: 500px;
+    margin-top: 50px;
+}

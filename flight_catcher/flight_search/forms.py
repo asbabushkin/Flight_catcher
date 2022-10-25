@@ -26,10 +26,12 @@ class SearchForm(forms.ModelForm):
             'depart_date': DateTimeInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Дата вылета',
+                'type': 'date',
             }),
             'return_date': DateTimeInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Дата возвращения',
+                'type': 'date',
             }),
             'num_adults': TextInput(attrs={
                 'class': 'form-control',
