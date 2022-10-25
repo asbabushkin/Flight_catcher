@@ -31,7 +31,7 @@ class Search(models.Model):
     depature_city = models.CharField(max_length=50)
     dest_city = models.CharField(max_length=50)
     oneway_flight = models.BooleanField(default=False)
-    max_transhipments = models.SmallIntegerField(default=0)
+    max_transhipments = models.SmallIntegerField()
     depart_date = models.DateField()
     return_date = models.DateField(null=True)
     num_adults = models.SmallIntegerField()

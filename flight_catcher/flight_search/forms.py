@@ -1,9 +1,50 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import *
+from django.forms import TextInput, DateTimeInput, CheckboxInput
+from .models import Search, CityCode
 
 
-class NewSearchForm(forms.ModelForm):
+class SearchForm(forms.ModelForm):
+    class Meta:
+        model = Search
+        fields = ['depature_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
+                  'num_adults', 'num_children', 'luggage', 'telegr_acc']
+
+        widgets = {
+            'depature_city': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Откуда',
+            }),
+            'dest_city': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Куда',
+            }),
+            'max_transhipments': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Пересадок',
+            }),
+            'depart_date': DateTimeInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Дата вылета',
+            }),
+            'return_date': DateTimeInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Дата возвращения',
+            }),
+            'num_adults': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Взрослых',
+            }),
+            'num_children': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Детей',
+            }),
+
+            'telegr_acc': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Телеграм аккаунт',
+            }),
+        }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['depature_city'].label = 'Откуда'
@@ -19,10 +60,7 @@ class NewSearchForm(forms.ModelForm):
         self.fields['luggage'].label = 'Багаж'
         self.fields['telegr_acc'].label = 'Телеграм аккаунт'
 
-    class Meta:
-        model = Search
-        fields = ['depature_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
-                  'num_adults', 'num_children', 'luggage', 'telegr_acc']
+
 
     def clean_depature_city(self):
         depature_city = self.cleaned_data['depature_city']

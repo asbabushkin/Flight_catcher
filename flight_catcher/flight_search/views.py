@@ -1,24 +1,28 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 
-from .forms import *
+from .forms import SearchForm
 
 
 # Create your views here.
 def index(request):
+    error = ''
     if request.method == 'POST':
-        form = NewSearchForm(request.POST)
+        form = SearchForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
             form.save()
             return redirect('search_result')
         else:
-            print('Smth wrong with form...')
+            error = 'Smth wrong with form...'
 
-    else:
-        form = NewSearchForm()
+    form = SearchForm()
+    context = {
+        'title': 'Flight catcher',
+        'form': form,
+        'error': error,
+    }
 
-    return render(request, 'flight_search/index.html', {'title': 'Flight catcher', 'form': form})
+    return render(request, 'flight_search/index.html', context)
 
 
 def search_res(request):
