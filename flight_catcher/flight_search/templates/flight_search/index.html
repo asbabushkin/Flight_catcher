@@ -1,28 +1,49 @@
 {% extends 'flight_search/base.html' %}
 
 {% block content %}
+<figure class="text-center">
+    <h2>{{title}}</h2>
+</figure>
 
-<h1>{{title}}</h1>
-<div>{{ form.non_field_errors }}</div>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.depature_city }}<br>
-    {{ form.dest_city }}<br>
-    {{ form.max_transhipments }}<br>
-    {{ form.depart_date }}<br>
-    {{ form.return_date }}<br>
-    {{ form.num_adults }}<br>
-    {{ form.num_children }}<br>
-<!--    {{ form.luggage }}-->
-    {{ form.telegr_acc }}<br>
-    <span>{{ error }}</span>
-    <button class="btn btn-warning" type="submit">Поиск</button>
-</form>
-
-<!--<form action="{% url 'home' %}" method="post">-->
-<!--    {% csrf_token %}-->
-<!--    {{ form.as_p }}-->
-<!--    <button type="submit">Найти!</button>-->
-<!--</form>-->
-
+<div>
+    <div>{{ form.non_field_errors }}</div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <span class="input-group-text">Откуда</span>
+            {{ form.depature_city }}
+        </div>
+         <div class="input-group mb-3">
+            <span class="input-group-text">Куда</span>
+            {{ form.dest_city }}
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Пересадок</span>
+            {{ form.max_transhipments }}
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Дата вылета</span>
+            {{ form.depart_date }}
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Дата возвращения</span>
+            {{ form.return_date }}
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Взрослых</span>
+            {{ form.num_adults }}
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Детей</span>
+            {{ form.num_children }}
+        </div>
+    <!--    {{ form.luggage }}-->
+        <div class="input-group mb-3">
+            <span class="input-group-text">Телеграм аккаунт</span>
+            {{ form.telegr_acc }}
+        </div>
+        <span>{{ error }}</span>
+        <button class="btn btn-warning" type="submit">Поиск</button>
+    </form>
+</div>
 {% endblock %}

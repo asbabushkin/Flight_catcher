@@ -10,48 +10,50 @@ class SearchForm(forms.ModelForm):
         fields = ['depature_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
                   'num_adults', 'num_children', 'luggage', 'telegr_acc']
 
+
         widgets = {
             'depature_city': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Откуда',
+                'placeholder': '',
             }),
             'dest_city': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Куда',
+                'placeholder': '',
             }),
             'max_transhipments': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Пересадок',
+                'placeholder': '',
             }),
             'depart_date': DateTimeInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Дата вылета',
+                'placeholder': '',
                 'type': 'date',
             }),
             'return_date': DateTimeInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Дата возвращения',
+                'placeholder': '',
                 'type': 'date',
             }),
             'num_adults': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Взрослых',
+                'placeholder': '',
             }),
             'num_children': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Детей',
+                'placeholder': '',
             }),
 
             'telegr_acc': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Телеграм аккаунт',
+                'placeholder': '',
             }),
         }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['depature_city'].label = 'Откуда'
         self.fields['dest_city'].label = 'Куда'
-        #self.fields['oneway_flight'].label = 'В один конец'
+        # self.fields['oneway_flight'].label = 'В один конец'
         self.fields['max_transhipments'].label = 'Пересадок не более'
         self.fields['depart_date'].label = 'Дата вылета'
         self.fields['return_date'].label = 'Дата возвращения'
@@ -61,8 +63,6 @@ class SearchForm(forms.ModelForm):
         self.fields['num_children'].required = False
         self.fields['luggage'].label = 'Багаж'
         self.fields['telegr_acc'].label = 'Телеграм аккаунт'
-
-
 
     def clean_depature_city(self):
         depature_city = self.cleaned_data['depature_city']
@@ -78,9 +78,6 @@ class SearchForm(forms.ModelForm):
         if not CityCode.objects.filter(city_rus=dest_city):
             raise ValidationError('Город назначения не найден!')
         return dest_city
-
-
-
 
     # depature = forms.CharField(min_length=2, max_length=50, strip=True, label='Откуда')
     # dest = forms.CharField(min_length=2, max_length=50, strip=True, label='Куда')

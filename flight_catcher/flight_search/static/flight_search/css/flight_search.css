@@ -5,5 +5,19 @@ body {
 form {
     margin-left: 32%;
     width: 500px;
-    margin-top: 50px;
+    margin-top: 30px;
+}
+
+.main_container {
+    border: 0.5em solid red;
+    width: 50%;
+    display: inline;
+}
+
+.input-group-text {
+    width: 35%;
+}
+
+.text-center {
+    margin-top: 30px;
 }
