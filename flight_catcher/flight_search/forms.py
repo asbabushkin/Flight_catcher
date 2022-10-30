@@ -1,15 +1,19 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import TextInput, DateTimeInput, CheckboxInput
+from django.forms import TextInput, DateTimeInput, NumberInput, DateInput, DateField
+
+from flight_catcher import settings
 from .models import Search, CityCode
+#from .widgets import DatePickerInput
+import datetime
 
 
 class SearchForm(forms.ModelForm):
+
     class Meta:
         model = Search
         fields = ['depature_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
-                  'num_adults', 'num_children', 'luggage', 'telegr_acc']
-
+                  'num_adults', 'num_children', 'luggage', 'telegr_acc',]
 
         widgets = {
             'depature_city': TextInput(attrs={
@@ -20,27 +24,27 @@ class SearchForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': '',
             }),
-            'max_transhipments': TextInput(attrs={
+            'max_transhipments': NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': '',
             }),
-            'depart_date': DateTimeInput(attrs={
+            # 'depart_date': DatePickerInput(),
+
+            'depart_date': DateInput(format='%d-%m-%Y', attrs={
                 'class': 'form-control',
-                'placeholder': '',
                 'type': 'date',
             }),
             'return_date': DateTimeInput(attrs={
                 'class': 'form-control',
-                'placeholder': '',
                 'type': 'date',
             }),
-            'num_adults': TextInput(attrs={
+            'num_adults': NumberInput(attrs={
                 'class': 'form-control',
-                'placeholder': '',
+                'placeholder': '1',
             }),
-            'num_children': TextInput(attrs={
+            'num_children': NumberInput(attrs={
                 'class': 'form-control',
-                'placeholder': '',
+                'placeholder': '0',
             }),
 
             'telegr_acc': TextInput(attrs={
@@ -78,6 +82,11 @@ class SearchForm(forms.ModelForm):
         if not CityCode.objects.filter(city_rus=dest_city):
             raise ValidationError('Город назначения не найден!')
         return dest_city
+
+    def clean_num_children(self):
+        if self.cleaned_data['num_children'] > 0 and self.cleaned_data['num_adults'] == 0:
+            raise ValidationError('Ребенок не может лететь без взрослого!')
+        return self.cleaned_data['num_children']
 
     # depature = forms.CharField(min_length=2, max_length=50, strip=True, label='Откуда')
     # dest = forms.CharField(min_length=2, max_length=50, strip=True, label='Куда')

@@ -6,9 +6,27 @@
 </figure>
 
 <div>
-    <div>{{ form.non_field_errors }}</div>
+<!--    <div>{{ form.non_field_errors }}</div>-->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибки ввода данных:</strong>
+        </div>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
     <form method="POST">
         {% csrf_token %}
+
         <div class="input-group mb-3">
             <span class="input-group-text">Откуда</span>
             {{ form.depature_city }}
@@ -24,9 +42,10 @@
         <div class="input-group mb-3">
             <span class="input-group-text">Дата вылета</span>
             {{ form.depart_date }}
+
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text">Дата возвращения</span>
+            <span class="input-group-text" >Дата возвращения</span>
             {{ form.return_date }}
         </div>
         <div class="input-group mb-3">
@@ -37,7 +56,6 @@
             <span class="input-group-text">Детей</span>
             {{ form.num_children }}
         </div>
-    <!--    {{ form.luggage }}-->
         <div class="input-group mb-3">
             <span class="input-group-text">Телеграм аккаунт</span>
             {{ form.telegr_acc }}
@@ -47,3 +65,4 @@
     </form>
 </div>
 {% endblock %}
+
