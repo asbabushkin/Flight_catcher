@@ -16,7 +16,7 @@ def index(request):
         form = SearchForm()
 
     context = {
-        'title': 'Автомониторинг цен на авиабилеты',
+        'title': 'Система мониторинга цен на авиабилеты',
         'form': form,
     }
     return render(request, 'flight_search/index.html', context)

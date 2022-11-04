@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import TextInput, DateTimeInput, NumberInput, DateInput, DateField
 import datetime
+import string
 from flight_catcher import settings
 from .models import Search, CityCode
 
@@ -105,21 +106,20 @@ class SearchForm(forms.ModelForm):
         return self.cleaned_data['num_adults']
 
     def clean_num_children(self):
-        if self.cleaned_data['num_children'] < 0 or self.cleaned_data['num_children'] > 10:
-            raise ValidationError('Некорректное значение в поле "Количество детей" (не более 10)')
-        return self.cleaned_data['num_children']
+        if self.cleaned_data['num_children'] is not None:
+            if self.cleaned_data['num_children'] < 0 or self.cleaned_data['num_children'] > 10:
+                raise ValidationError('Некорректное значение в поле "Количество детей" (не более 10)')
+            return self.cleaned_data['num_children']
 
     def clean_telegr_acc(self):
+        acc_symb = list(string.digits + string.ascii_lowercase + '_')
         if self.cleaned_data['telegr_acc'][0] != '@':
             raise ValidationError('Телеграм-аккаунт должен начинаться со знака "@"')
+        elif len(self.cleaned_data['telegr_acc']) < 6:
+            raise ValidationError('Телеграм-аккаунт имеет длину не менее 6 символов')
+        for i in self.cleaned_data['telegr_acc'][1:]:
+            if i not in acc_symb:
+                raise ValidationError('Телеграм-аккаунт содержит недопустимые символы')
         return self.cleaned_data['telegr_acc']
 
-    # depature = forms.CharField(min_length=2, max_length=50, strip=True, label='Откуда')
-    # dest = forms.CharField(min_length=2, max_length=50, strip=True, label='Куда')
-    # leave_date = forms.DateField(label='Вылет')
-    # return_date = forms.DateField(label='Возвращение')
-    # tranship = forms.TypedChoiceField(choices=(0, 1, 2, 3), coerce=int, empty_value=0, label='Пересадки')
-    # num_pass = forms.IntegerField(min_value=1, max_value=10, label='Пассажиры')
-    # luggage = forms.BooleanField(label='Багаж')
-    # seat_class = forms.TypedChoiceField(choices=('эконом', 'бизнес', 'первый', 'премиум'), empty_value='эконом',                                        label='Класс')
-    # telegr_acc = forms.CharField(min_length=1, max_length=50, strip=True, label='Телеграм')
+  
