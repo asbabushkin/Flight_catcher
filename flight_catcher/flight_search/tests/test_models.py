@@ -7,7 +7,7 @@ class SearchTestClass(TestCase):
     @classmethod
     def setUpTestData(cls):
         Search.objects.create(depature_city='Москва',
-                              dest_city='Bob',
+                              dest_city='Екатеринбург',
                               oneway_flight=True,
                               max_transhipments=1,
                               depart_date='2022-11-28',

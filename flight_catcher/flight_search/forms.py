@@ -90,9 +90,8 @@ class SearchForm(forms.ModelForm):
         if self.cleaned_data['return_date'] is not None:
             if self.cleaned_data['return_date'] < datetime.date.today():
                 raise ValidationError('Дата возвращения уже прошла.')
-            if self.cleaned_data['return_date'] < self.cleaned_data['depart_date']:
+            elif self.cleaned_data['return_date'] < self.cleaned_data['depart_date']:
                 raise ValidationError('Дата возвращения ранее даты вылета.')
-
         return self.cleaned_data['return_date']
 
     def clean_max_transhipments(self):
