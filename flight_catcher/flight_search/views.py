@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
+
 from .forms import SearchForm
 
 
@@ -11,12 +13,13 @@ def index(request):
         if form.is_valid():
             form.save()
             return redirect('search_result')
+            #return HttpResponseRedirect(reverse('search_result') )
 
     else:
         form = SearchForm()
 
     context = {
-        'title': 'Система мониторинга цен на авиабилеты',
+        'title': 'Мониторинг цен на авиабилеты',
         'form': form,
     }
     return render(request, 'flight_search/index.html', context)
