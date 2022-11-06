@@ -7,3 +7,4 @@ urlpatterns = (
     path('result/', search_res, name='search_result'),
     path('project_description/', proj_descr, name='proj_descr'),
 )
+

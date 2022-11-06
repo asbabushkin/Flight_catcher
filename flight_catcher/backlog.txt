@@ -18,3 +18,5 @@ DONE:
     - поле 'return_date' должно быть не ранее 'arrival_date';
     - поле 'telegr_acc' должно начинаться на '@';
 * добавить страницу "How it works".
+* Сделать тесты:
+    - тесты форм (test_search_form_depart_date_in_past, test_search_form_return_date_before_depart_date)
