@@ -17,7 +17,7 @@ class SearchFormTest(TestCase):
             'return_date': None,
             'num_adults': 1,
             'num_children': 0,
-            'luggage': False,
+            'luggage': True,
             'telegr_acc': '@my_account',
         }
         cities = [{
@@ -36,17 +36,28 @@ class SearchFormTest(TestCase):
         for city in cities:
             CityCode.objects.create(**city)
 
-    def test_search_form_is_valid(self):
+    def test_search_form_is_valid_all_fields_filled(self):
+        self.form_data['return_date'] = str(datetime.date.today() + datetime.timedelta(days=10))
         form = SearchForm(data=self.form_data)
-        print(form.errors)
         self.assertTrue(form.is_valid())
 
-    def test_search_form_depart_date_in_past(self):
+    def test_search_form_is_valid_no_return_flight(self):
+        form = SearchForm(data=self.form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_search_form_is_valid_no_luggage(self):
+        self.form_data['luggage'] = False
+        form = SearchForm(data=self.form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_search_form_is_invalid_depart_date_in_past(self):
         self.form_data['depart_date'] = str(datetime.date.today() - datetime.timedelta(days=1))
         form = SearchForm(data=self.form_data)
+        print(form.errors)
         self.assertFalse(form.is_valid())
 
-    def test_search_form_return_date_before_depart_date(self):
+    def test_search_form_is_invalid_return_date_before_depart_date(self):
         self.form_data['return_date'] = str(datetime.date.today() + datetime.timedelta(days=1))
         form = SearchForm(data=self.form_data)
+        print(form.errors)
         self.assertFalse(form.is_valid())
