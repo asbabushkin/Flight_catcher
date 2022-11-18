@@ -13,6 +13,7 @@
         - поле 'telegram_account' не содержит знака '@';
         - поле 'telegram_account' короче 6 символов;
         - поле 'telegram_account' содержит недопустимые символы;
+        - запрос от пользователя с данным tegram_account уже содержится в таблице Search;
 
 
 * Сделать тесты представлений:
@@ -34,6 +35,8 @@ DONE:
     - поле 'return_date' должно быть не ранее 'arrival_date';
     - поле 'telegr_acc' должно начинаться на '@';
 * добавить страницу "How it works".
+
+TECTИРОВАНИЕ:
 * Сделать тесты форм:
     - Форма невалидна:
         - дата вылета в прошлом (test_search_form_is_invalid_depart_date_in_past);

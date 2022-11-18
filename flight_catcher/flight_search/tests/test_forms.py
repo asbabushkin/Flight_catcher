@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.test import Client
+# from django.test import Client
 
 import datetime
 from flight_search.forms import SearchForm
@@ -7,19 +7,8 @@ from flight_search.models import *
 
 
 class SearchFormTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.form_data = {
-            'depature_city': 'Москва',
-            'dest_city': 'Сочи',
-            'max_transhipments': 1,
-            'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
-            'return_date': None,
-            'num_adults': 1,
-            'num_children': 0,
-            'luggage': True,
-            'telegr_acc': '@my_account',
-        }
+    @classmethod
+    def setUpTestData(cls):
         cities = [{
             'city_eng': 'Moscow',
             'city_rus': 'Москва',
@@ -35,6 +24,20 @@ class SearchFormTest(TestCase):
         ]
         for city in cities:
             CityCode.objects.create(**city)
+
+    def setUp(self):
+        #       self.client = Client()
+        self.form_data = {
+            'depature_city': 'Москва',
+            'dest_city': 'Сочи',
+            'max_transhipments': 1,
+            'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
+            'return_date': None,
+            'num_adults': 1,
+            'num_children': 0,
+            'luggage': True,
+            'telegr_acc': '@my_account',
+        }
 
     def test_search_form_is_valid_all_fields_filled(self):
         self.form_data['return_date'] = str(datetime.date.today() + datetime.timedelta(days=10))
@@ -61,3 +64,5 @@ class SearchFormTest(TestCase):
         form = SearchForm(data=self.form_data)
         print(form.errors)
         self.assertFalse(form.is_valid())
+
+
