@@ -25,6 +25,7 @@ class SearchFormTest(TestCase):
         for city in cities:
             CityCode.objects.create(**city)
 
+
     def setUp(self):
         #       self.client = Client()
         self.form_data = {
@@ -100,4 +101,35 @@ class SearchFormTest(TestCase):
         self.form_data['max_transhipments'] = -1
         form = SearchForm(data=self.form_data)
         print('Test test_search_form_is_invalid_negative_amount_of_transhipments:', form.errors)
+        self.assertFalse(form.is_valid())
+
+
+    def test_search_form_is_invalid_telegr_acc_wrong_first_symb(self):
+        self.form_data['telegr_acc'] = 'user123'
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_telegr_acc_wrong_first_symb:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_telegr_acc_too_short(self):
+        self.form_data['telegr_acc'] = '@user'
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_telegr_acc_too_short:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_telegr_acc_contains_restricted_symb(self):
+        self.form_data['telegr_acc'] = '@user!'
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_telegr_acc_contains_restricted_symb:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_depart_city_doesnt_exist(self):
+        self.form_data['depature_city'] = 'Миасс'
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_depart_city_doesnt_exist:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_dest_city_doesnt_exist(self):
+        self.form_data['dest_city'] = 'Миасс'
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_dest_city_doesnt_exist:', form.errors)
         self.assertFalse(form.is_valid())

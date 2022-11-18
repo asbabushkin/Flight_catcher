@@ -3,11 +3,6 @@
 
 * Сделать тесты форм:
     - Форма невалидна:
-        - города вылета нет в бд;
-        - города назначения нет в бд;
-        - поле 'telegram_account' не содержит знака '@';
-        - поле 'telegram_account' короче 6 символов;
-        - поле 'telegram_account' содержит недопустимые символы;
         - запрос от пользователя с данным tegram_account уже содержится в таблице Search;
 
 
@@ -43,6 +38,11 @@ TECTИРОВАНИЕ:
         - количество пересадок более 3 (test_search_form_is_invalid_too_many_transhipments);
         - количество пересадок менее 0 (test_search_form_is_invalid_negative_amount_of_transhipments);
 
+        - поле 'telegram_account' не начинается со знака '@' (test_search_form_is_invalid_telegr_acc_wrong_first_symb);
+        - поле 'telegram_account' короче 6 символов (test_search_form_is_invalid_telegr_acc_too_short);
+        - поле 'telegram_account' содержит недопустимые символы (test_search_form_is_invalid_telegr_acc_contains_restricted_symb);
+        - города вылета нет в бд (test_search_form_is_invalid_depart_city_doesnt_exist);
+        - города назначения нет в бд (test_search_form_is_invalid_dest_city_doesnt_exist);
 
     - Форма валидна:
         - все поля заполнены (test_search_form_is_valid_all_fields_filled);
