@@ -95,7 +95,7 @@ class SearchForm(forms.ModelForm):
         return self.cleaned_data['return_date']
 
     def clean_max_transhipments(self):
-        if 0 > self.cleaned_data['max_transhipments'] > 3:
+        if self.cleaned_data['max_transhipments'] < 0 or self.cleaned_data['max_transhipments'] > 3:
             raise ValidationError('От 0 до 3 пересадок')
         return self.cleaned_data['max_transhipments']
 
@@ -106,8 +106,8 @@ class SearchForm(forms.ModelForm):
 
     def clean_num_children(self):
         if self.cleaned_data['num_children'] is not None:
-            if self.cleaned_data['num_children'] < 0 or self.cleaned_data['num_children'] > 10:
-                raise ValidationError('Некорректное значение в поле "Количество детей" (не более 10)')
+            if self.cleaned_data['num_children'] < 0 or self.cleaned_data['num_children'] > 5:
+                raise ValidationError('Некорректное значение в поле "Количество детей" (не более 5)')
             return self.cleaned_data['num_children']
 
     def clean_telegr_acc(self):

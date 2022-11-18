@@ -3,13 +3,8 @@
 
 * Сделать тесты форм:
     - Форма невалидна:
-        - нет даты вылета;
         - города вылета нет в бд;
         - города назначения нет в бд;
-        - 0 взрослых пассажиров;
-        - количество взрослых пассажиров более 10;
-        - количество детей более 5;
-        - количество пересадок более 3;
         - поле 'telegram_account' не содержит знака '@';
         - поле 'telegram_account' короче 6 символов;
         - поле 'telegram_account' содержит недопустимые символы;
@@ -41,6 +36,14 @@ TECTИРОВАНИЕ:
     - Форма невалидна:
         - дата вылета в прошлом (test_search_form_is_invalid_depart_date_in_past);
         - дата возвращения ранее даты вылета (test_search_form_is_invalid_return_date_before_depart_date);
+        - нет даты вылета (test_search_form_is_invalid_no_depart_date);
+        - 0 взрослых пассажиров (test_search_form_is_invalid_no_adult_passenger);
+        - количество взрослых пассажиров более 10 (test_search_form_is_invalid_too_many_adult_passengers);
+        - количество детей более 5 (test_search_form_is_invalid_too_many_children);
+        - количество пересадок более 3 (test_search_form_is_invalid_too_many_transhipments);
+        - количество пересадок менее 0 (test_search_form_is_invalid_negative_amount_of_transhipments);
+
+
     - Форма валидна:
         - все поля заполнены (test_search_form_is_valid_all_fields_filled);
         - без багажа (test_search_form_is_valid_no_luggage);

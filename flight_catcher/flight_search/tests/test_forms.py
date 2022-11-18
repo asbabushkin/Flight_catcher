@@ -56,13 +56,48 @@ class SearchFormTest(TestCase):
     def test_search_form_is_invalid_depart_date_in_past(self):
         self.form_data['depart_date'] = str(datetime.date.today() - datetime.timedelta(days=1))
         form = SearchForm(data=self.form_data)
-        print(form.errors)
+        print('Test test_search_form_is_invalid_depart_date_in_past:', form.errors)
         self.assertFalse(form.is_valid())
 
     def test_search_form_is_invalid_return_date_before_depart_date(self):
         self.form_data['return_date'] = str(datetime.date.today() + datetime.timedelta(days=1))
         form = SearchForm(data=self.form_data)
-        print(form.errors)
+        print('Test test_search_form_is_invalid_return_date_before_depart_date:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_no_depart_date(self):
+        self.form_data['depart_date'] = None
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_no_depart_date:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_no_adult_passenger(self):
+        self.form_data['num_adults'] = 0
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_no_adult_passenger:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_too_many_adult_passengers(self):
+        self.form_data['num_adults'] = 11
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_too_many_adult_passengers:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_too_many_children(self):
+        self.form_data['num_children'] = 6
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_too_many_children:', form.errors)
         self.assertFalse(form.is_valid())
 
 
+    def test_search_form_is_invalid_too_many_transhipments(self):
+        self.form_data['max_transhipments'] = 4
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_too_many_transhipments:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_negative_amount_of_transhipments(self):
+        self.form_data['max_transhipments'] = -1
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_negative_amount_of_transhipments:', form.errors)
+        self.assertFalse(form.is_valid())
