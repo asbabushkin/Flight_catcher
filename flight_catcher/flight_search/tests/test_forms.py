@@ -7,6 +7,7 @@ from flight_search.models import *
 
 
 class SearchFormTest(TestCase):
+    # setUpTestData: Run once to set up non-modified data for all class methods.
     @classmethod
     def setUpTestData(cls):
         cities = [{
@@ -25,8 +26,22 @@ class SearchFormTest(TestCase):
         for city in cities:
             CityCode.objects.create(**city)
 
+        test_search = {
+            'depature_city': 'Москва',
+            'dest_city': 'Сочи',
+            'max_transhipments': 1,
+            'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
+            'return_date': None,
+            'num_adults': 1,
+            'num_children': 0,
+            'luggage': True,
+            'telegr_acc': '@mytelegram_account',
+        }
+
+        Search.objects.create(**test_search)
 
     def setUp(self):
+        # setUp: Run once for every test method to setup clean data.
         #       self.client = Client()
         self.form_data = {
             'depature_city': 'Москва',
@@ -90,7 +105,6 @@ class SearchFormTest(TestCase):
         print('Test test_search_form_is_invalid_too_many_children:', form.errors)
         self.assertFalse(form.is_valid())
 
-
     def test_search_form_is_invalid_too_many_transhipments(self):
         self.form_data['max_transhipments'] = 4
         form = SearchForm(data=self.form_data)
@@ -102,7 +116,6 @@ class SearchFormTest(TestCase):
         form = SearchForm(data=self.form_data)
         print('Test test_search_form_is_invalid_negative_amount_of_transhipments:', form.errors)
         self.assertFalse(form.is_valid())
-
 
     def test_search_form_is_invalid_telegr_acc_wrong_first_symb(self):
         self.form_data['telegr_acc'] = 'user123'
@@ -132,4 +145,10 @@ class SearchFormTest(TestCase):
         self.form_data['dest_city'] = 'Миасс'
         form = SearchForm(data=self.form_data)
         print('Test test_search_form_is_invalid_dest_city_doesnt_exist:', form.errors)
+        self.assertFalse(form.is_valid())
+
+    def test_search_form_is_invalid_telegram_acc_already_made_request(self):
+        self.form_data['telegr_acc'] = '@mytelegram_account'
+        form = SearchForm(data=self.form_data)
+        print('Test test_search_form_is_invalid_telegram_acc_already_made_request:', form.errors)
         self.assertFalse(form.is_valid())
