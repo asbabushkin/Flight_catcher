@@ -57,6 +57,7 @@ class SearchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['depature_city'].label = 'Откуда'
+
         self.fields['dest_city'].label = 'Куда'
         # self.fields['oneway_flight'].label = 'В один конец'
         self.fields['max_transhipments'].label = 'Пересадок не более'

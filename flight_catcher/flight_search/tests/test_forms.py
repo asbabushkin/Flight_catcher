@@ -1,6 +1,4 @@
 from django.test import TestCase
-# from django.test import Client
-
 import datetime
 from flight_search.forms import SearchForm
 from flight_search.models import *
@@ -42,7 +40,6 @@ class SearchFormTest(TestCase):
 
     def setUp(self):
         # setUp: Run once for every test method to setup clean data.
-        #       self.client = Client()
         self.form_data = {
             'depature_city': 'Москва',
             'dest_city': 'Сочи',

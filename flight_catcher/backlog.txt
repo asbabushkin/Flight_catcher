@@ -1,9 +1,6 @@
 * Сделать тесты моделей:
-    -...
-
-* Сделать тесты форм:
-    - Форма невалидна:
-
+    - проверка корректности verbose name таблицы Search с использованием subTest (test_search_model_verbose_names);
+    - проверка корректности help_text таблицы Search с использованием subTest (test_search_model_help_texts);
 
 
 * Сделать тесты представлений:
@@ -48,5 +45,10 @@ TECTИРОВАНИЕ:
         - все поля заполнены (test_search_form_is_valid_all_fields_filled);
         - без багажа (test_search_form_is_valid_no_luggage);
         - форма валидна рейс в один конец (test_search_form_is_valid);
+
+* Сделать тесты моделей:
+    - проверка корректности verbose name таблицы Search с использованием subTest (test_search_model_verbose_names);
+    - проверка корректности help_text таблицы Search с использованием subTest (test_search_model_help_texts);
+
 
 
