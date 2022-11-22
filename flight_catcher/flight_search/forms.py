@@ -35,7 +35,7 @@ class SearchForm(forms.ModelForm):
                 'class': 'form-control',
                 'type': 'date',
             }),
-            'return_date': DateTimeInput(attrs={
+            'return_date': DateInput(attrs={
                 'class': 'form-control',
                 'type': 'date',
             }),

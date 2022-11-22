@@ -5,7 +5,6 @@ from django.urls import reverse
 from .forms import SearchForm
 
 
-
 # Create your views here.
 def index(request):
     if request.method == 'POST':
@@ -27,7 +26,6 @@ def index(request):
 
 def search_res(request):
     return render(request, 'flight_search/result.html', {'title': 'Запрос принят!'})
-
 
 
 def proj_descr(request):

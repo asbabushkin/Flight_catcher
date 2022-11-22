@@ -25,10 +25,6 @@ class SearchModelTestClass(TestCase):
     #     print("setUp: Run once for every test method to setup clean data.")
     #     pass
 
-    # def test_depature_city_verbose_name(self):
-    #     search = Search.objects.get(id=1)
-    #     field_label = search._meta.get_field('depature_city').verbose_name
-    #     self.assertEquals(field_label, 'Город вылета')
 
     def test_depature_city_max_length(self):
         test_search = SearchModelTestClass.test_search
