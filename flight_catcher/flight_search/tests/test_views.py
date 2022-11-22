@@ -27,6 +27,7 @@ class IndexPageTest(TestCase):
             'dest_city': 'Сочи',
             'max_transhipments': 1,
             'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
+            'return_date': str(datetime.date.today() + datetime.timedelta(days=14)),
             'num_adults': 1,
             'num_children': 0,
             'telegr_acc': '@my_account',
@@ -36,11 +37,18 @@ class IndexPageTest(TestCase):
         resp = self.client.post(reverse('home'), self.form_data)
         self.assertRedirects(resp, reverse('search_result'))
 
-    def test_form_invalid_depart_date_in_past(self):
+    def test_views_search_form_is_invalid_depart_date_in_past(self):
         date_in_past = str(datetime.date.today() - datetime.timedelta(days=1))
         resp = self.client.post(reverse('home'), {'depart_date': date_in_past})
         self.assertEqual(resp.status_code, 200)
         self.assertFormError(resp, 'form', 'depart_date', 'Дата вылета уже прошла.')
+
+    def test_views_search_form_is_invalid_return_date_before_depart_date(self):
+        resp = self.client.post(reverse('home'),
+                                {'depart_date': self.form_data['depart_date'],
+                                'return_date': str(datetime.date.today())})
+        self.assertEqual(resp.status_code, 200)
+        self.assertFormError(resp, 'form', 'return_date', 'Дата возвращения ранее даты вылета.')
 
     def test_index_page_creates_correct_context(self):
         resp = self.client.get(reverse('home'))
