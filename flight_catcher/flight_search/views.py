@@ -1,22 +1,22 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import FormView, View
+from django.views.generic.edit import FormView, View, CreateView
 
 from .forms import SearchForm
 
 
 # Create your views here.
 
-# class SearchFormView(FormView):
+# class AddSearchView(CreateView):
 #     form_class = SearchForm
 #     template_name = 'flight_search/index.html'
-#     success_url = reverse_lazy('home')
+#     success_url = reverse_lazy('search_result')
 #
 #     def get_context_data(self, *, object_list=None, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         context['title'] = 'Мониторинг цен на авиабилеты'
-#        # context['form'] = SearchForm
+#         context['form'] = SearchForm
 #         return context
 
 
