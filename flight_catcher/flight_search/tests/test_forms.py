@@ -25,7 +25,7 @@ class SearchFormTest(TestCase):
             CityCode.objects.create(**city)
 
         test_search = {
-            'depature_city': 'Москва',
+            'depart_city': 'Москва',
             'dest_city': 'Сочи',
             'max_transhipments': 1,
             'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
@@ -41,7 +41,7 @@ class SearchFormTest(TestCase):
     def setUp(self):
         # setUp: Run once for every test method to setup clean data.
         self.form_data = {
-            'depature_city': 'Москва',
+            'depart_city': 'Москва',
             'dest_city': 'Сочи',
             'max_transhipments': 1,
             'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
@@ -133,7 +133,7 @@ class SearchFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_search_form_is_invalid_depart_city_doesnt_exist(self):
-        self.form_data['depature_city'] = 'Миасс'
+        self.form_data['depart_city'] = 'Миасс'
         form = SearchForm(data=self.form_data)
         print('Test test_search_form_is_invalid_depart_city_doesnt_exist:', form.errors)
         self.assertFalse(form.is_valid())

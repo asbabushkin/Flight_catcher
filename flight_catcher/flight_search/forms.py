@@ -13,11 +13,11 @@ from .models import Search, CityCode
 class SearchForm(forms.ModelForm):
     class Meta:
         model = Search
-        fields = ['depature_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
+        fields = ['depart_city', 'dest_city', 'max_transhipments', 'depart_date', 'return_date',
                   'num_adults', 'num_children', 'luggage', 'telegr_acc', ]
 
         widgets = {
-            'depature_city': TextInput(attrs={
+            'depart_city': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': '',
             }),
@@ -56,10 +56,8 @@ class SearchForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['depature_city'].label = 'Откуда'
-
+        self.fields['depart_city'].label = 'Откуда'
         self.fields['dest_city'].label = 'Куда'
-        # self.fields['oneway_flight'].label = 'В один конец'
         self.fields['max_transhipments'].label = 'Пересадок не более'
         self.fields['depart_date'].label = 'Дата вылета'
         self.fields['return_date'].label = 'Дата возвращения'
@@ -70,11 +68,11 @@ class SearchForm(forms.ModelForm):
         self.fields['luggage'].label = 'Багаж'
         self.fields['telegr_acc'].label = 'Телеграм аккаунт'
 
-    def clean_depature_city(self):
-        depature_city = self.cleaned_data['depature_city']
-        if not CityCode.objects.filter(city_rus=depature_city):
+    def clean_depart_city(self):
+        depart_city = self.cleaned_data['depart_city']
+        if not CityCode.objects.filter(city_rus=depart_city):
             raise ValidationError('Город вылета не найден!')
-        return depature_city
+        return depart_city
 
     def clean_dest_city(self):
         dest_city = self.cleaned_data['dest_city']

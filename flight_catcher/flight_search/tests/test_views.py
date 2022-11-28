@@ -23,7 +23,7 @@ class IndexPageTest(TestCase):
             CityCode.objects.create(**city)
 
         self.form_data = {
-            'depature_city': 'Москва',
+            'depart_city': 'Москва',
             'dest_city': 'Сочи',
             'max_transhipments': 1,
             'depart_date': str(datetime.date.today() + datetime.timedelta(days=7)),
@@ -54,7 +54,7 @@ class IndexPageTest(TestCase):
         resp = self.client.get(reverse('home'))
         self.assertEqual(resp.status_code, 200)
         form_fields = {
-            'depature_city': forms.fields.CharField,
+            'depart_city': forms.fields.CharField,
             'dest_city': forms.fields.CharField,
             'max_transhipments': forms.fields.IntegerField,
             'depart_date': forms.fields.DateField,
