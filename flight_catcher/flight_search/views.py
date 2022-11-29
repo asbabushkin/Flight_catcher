@@ -31,7 +31,7 @@ class SearchResultView(View):
 
 class ProjectDescriptionView(View):
     def get(self, request):
-        return render(request, 'flight_search/project_description.html', {'title': 'Как это работает'})
+        return render(request, 'flight_search/project_description.html', {'title': 'Как это работает?'})
 
 
 def pageNotFound(request, exception):
