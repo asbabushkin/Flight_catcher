@@ -111,13 +111,12 @@ class SearchForm(forms.ModelForm):
 
     def clean_telegr_acc(self):
         acc_symb = list(string.digits + string.ascii_lowercase + '_')
-
         if self.cleaned_data['telegr_acc'][0] != '@':
             raise ValidationError('Телеграм-аккаунт должен начинаться со знака "@"')
         elif len(self.cleaned_data['telegr_acc']) < 6:
             raise ValidationError('Телеграм-аккаунт имеет длину не менее 6 символов')
-        elif Search.objects.filter(telegr_acc=self.cleaned_data['telegr_acc']):
-            raise ValidationError('База данных уже содержит активный поиск данного пользователя!')
+        elif len(Search.objects.filter(telegr_acc=self.cleaned_data['telegr_acc'])) > 10:
+            raise ValidationError('Один пользователь может создавать не более 10 поисков!')
         for i in self.cleaned_data['telegr_acc'][1:]:
             if i not in acc_symb:
                 raise ValidationError('Телеграм-аккаунт содержит недопустимые символы')
