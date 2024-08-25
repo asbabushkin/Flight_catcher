@@ -1,0 +1,10 @@
+FROM python:3.10
+COPY requirements.txt requirements.txt
+RUN python -m pip install --upgrade pip && pip install -r requirements.txt
+WORKDIR /app
+COPY /flight_catcher/wsgi.py wsgi.py
+COPY /flight_search/ /flight_search/
+COPY data.py data.py
+COPY manage.py manage.py
+EXPOSE 8000
+ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app" ]
