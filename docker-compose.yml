@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+    database:
+        image: catcher_db:02
+        environment:
+            POSTGRES_DB: flight_search
+            POSTGRES_USER: alex
+            POSTGRES_PASSWORD: Cara9!
+        volumes:
+            - catcher_vol:/var/lib/postgresql/data
+
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready", "-U", "alex"]
+
+    backend:
+        image: catcher_back:02
+        environment:
+            POSTGRES_DB: flight_search
+            POSTGRES_USER: alex
+            POSTGRES_PASSWORD: Cara9!
+            HOST: database
+        depends_on:
+            database:
+                condition: service_healthy
+
+    frontend:
+        image: catcher_nginx:02
+        ports:
+            - 127.0.0.1:80:80
+        depends_on:
+            database:
+                condition: service_healthy
+            backend:
+                condition: service_started        
+
+#    backend-migrations:
+#        image: kcoursedocker/task-9.2-back:latest
+#        environment:
+#            PG_NAME: todo_list
+#            PG_USER: admin
+#            PG_PASSWORD: admin
+#            PG_HOST: database
+#        command: bash -c "make migrate"
+#        depends_on:
+#            database:
+#                condition: service_healthy
+#            backend:
+#                condition: service_started
+#
+#    backend-superuser:
+#        image: kcoursedocker/task-9.2-back:latest
+#        environment:
+#            PG_NAME: todo_list
+#            PG_USER: admin
+#            PG_PASSWORD: admin
+#            PG_HOST: database
+#            DJANGO_SUPERUSER_USERNAME: admin
+#            DJANGO_SUPERUSER_PASSWORD: admin
+#            DJANGO_SUPERUSER_EMAIL: admin@admin.com
+#        command: bash -c "make create-superuser"
+#
+#        depends_on:
+#            database:
+#                condition: service_healthy
+#            backend:
+#                condition: service_started
+#            backend-migrations:
+#                condition: service_started
+
+volumes:
+  catcher_vol:
