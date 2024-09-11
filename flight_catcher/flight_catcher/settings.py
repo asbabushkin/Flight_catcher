@@ -9,14 +9,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = "django-insecure-^*0$=o^eh+c)6_c5$g-y^&l%%62nvrp#p!u=tf8dx*=4h_7!a&"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "backend"]
+ALLOWED_HOSTS = ["103.90.73.189", "127.0.0.1", "localhost", "backend"]
 CSRF_TRUSTED_ORIGINS = [
+    "https://103.90.73.189",
+    "http://103.90.73.189",
     "https://127.0.0.1",
     "http://127.0.0.1",
     "https://localhost",
