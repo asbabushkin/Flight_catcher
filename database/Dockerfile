@@ -1,3 +1,2 @@
-FROM postgres:15.8-alpine
-RUN chmod +x init_db.sh
+FROM postgres:14-alpine
 COPY ./init_db.sh /docker-entrypoint-initdb.d/init_db.sh
