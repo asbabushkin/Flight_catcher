@@ -21,6 +21,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with open("flight_search/data/cities.json", "rb") as cities:
             reader_cities = json.load(cities)
-        self.stdout.write(
-            self.style.SUCCESS(self.add_objects(CityCode, reader_cities))
-        )
+        self.stdout.write(self.style.SUCCESS(self.add_objects(CityCode, reader_cities)))
