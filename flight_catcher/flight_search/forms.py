@@ -3,14 +3,9 @@ import string
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import (DateField, DateInput, DateTimeInput, NumberInput,
-                          TextInput)
-
-from flight_catcher import settings
+from django.forms import DateInput, NumberInput, TextInput
 
 from .models import CityCode, Search
-
-# from .widgets import DatePickerInput
 
 
 class SearchForm(forms.ModelForm):
