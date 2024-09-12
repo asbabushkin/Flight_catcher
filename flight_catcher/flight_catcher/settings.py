@@ -4,14 +4,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["103.90.73.189", "127.0.0.1", "localhost", "backend"]
@@ -82,7 +79,6 @@ DATABASES = {
     }
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -98,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Europe/Moscow"
@@ -115,9 +111,12 @@ DATE_INPUT_FORMATS = ("%d/%m/%Y", "%Y/%m/%d")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "flight_catcher/static/staticfiles/")
+
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "flight_catcher/static/"]
+STATIC_ROOT = os.path.join(BASE_DIR, "flight_catcher/static/staticfiles/")
+# STATICFILES_DIRS = (BASE_DIR.joinpath("static"),)
+# STATIC_ROOT = BASE_DIR.joinpath("staticfiles")
 
-# Default primary key field type
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
