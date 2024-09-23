@@ -11,7 +11,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["103.90.73.189", "127.0.0.1", "localhost", "backend"]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "backend"]
 CSRF_TRUSTED_ORIGINS = [
     "https://103.90.73.189",
     "http://103.90.73.189",
@@ -19,6 +20,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
     "https://localhost",
     "http://localhost",
+    "https://*.aviaspy.ru",
+    "http://*.aviaspy.ru"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
