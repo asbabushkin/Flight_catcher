@@ -1,11 +1,14 @@
 {% extends 'flight_search/base.html' %}
 
 {% block content %}
-<figure class="text-center">
-    <h2>{{title}}</h2>
-</figure>
+
 
 <div>
+
+    <figure class="text-center">
+        <h2>{{title}}</h2>
+    </figure>
+
 <!--    <div>{{ form.non_field_errors }}</div>-->
     {% if form.errors %}
         <div class="alert alert-danger">
@@ -24,8 +27,12 @@
             </div>
         {% endfor %}
     {% endif %}
+
+
+
     <form method="POST">
         {% csrf_token %}
+
 
         <div class="input-group mb-3">
             <span class="input-group-text">Откуда</span>
@@ -62,7 +69,9 @@
         </div>
         <span>{{ error }}</span>
         <button class="btn btn-warning" type="submit">Поиск</button>
+
     </form>
+
 </div>
 {% endblock %}
 

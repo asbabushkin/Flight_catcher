@@ -3,8 +3,9 @@ body {
 }
 
 form {
-    margin-left: 32%;
-    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
     margin-top: 30px;
 }
 
@@ -15,7 +16,7 @@ form {
 }
 
 .input-group-text {
-    width: 35%;
+    width: 45%;
 }
 
 
