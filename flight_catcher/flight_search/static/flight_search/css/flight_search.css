@@ -25,7 +25,10 @@ form {
 }
 
 .input-group-text {
-    width: 45%;
+    width: 40%;
 }
 
+.nav-link px-2 text-white {
+    font-size: 70px
+}
 

@@ -1,15 +1,11 @@
 {% extends 'flight_search/base.html' %}
-
 {% block content %}
 
-
 <div>
-
     <figure class="text-center">
-        <h2>{{title}}</h2>
+        <h2 style="margin-top: 15px">Следит за ценами на авиабилеты</h2>
     </figure>
 
-<!--    <div>{{ form.non_field_errors }}</div>-->
     {% if form.errors %}
         <div class="alert alert-danger">
             <strong>Ошибки ввода данных:</strong>
@@ -28,11 +24,8 @@
         {% endfor %}
     {% endif %}
 
-
-
     <form method="POST">
         {% csrf_token %}
-
 
         <div class="input-group mb-3">
             <span class="input-group-text">Откуда</span>
@@ -51,10 +44,6 @@
             {{ form.depart_date }}
 
         </div>
-<!--        <div class="input-group mb-3">-->
-<!--            <span class="input-group-text" >Дата возвращения</span>-->
-<!--            {{ form.return_date }}-->
-<!--        </div>-->
         <div class="input-group mb-3">
             <span class="input-group-text">Взрослых</span>
             {{ form.num_adults }}
@@ -64,14 +53,13 @@
             {{ form.num_children }}
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text">Телеграм аккаунт</span>
+            <span class="input-group-text">Ваш Телеграм</span>
             {{ form.telegr_acc }}
         </div>
         <span>{{ error }}</span>
-        <button class="btn btn-warning" type="submit">Поиск</button>
+        <button class="btn btn-secondary" type="submit">Поиск</button>
 
     </form>
-
 </div>
 {% endblock %}
 
