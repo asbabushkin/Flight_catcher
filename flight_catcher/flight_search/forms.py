@@ -115,9 +115,9 @@ class SearchForm(forms.ModelForm):
     def clean_max_transhipments(self):
         if (
             self.cleaned_data["max_transhipments"] < 0
-            or self.cleaned_data["max_transhipments"] > 3
+            or self.cleaned_data["max_transhipments"] > 1
         ):
-            raise ValidationError("От 0 до 3 пересадок")
+            raise ValidationError("Не более 1 пересадки")
         return self.cleaned_data["max_transhipments"]
 
     def clean_num_adults(self):
@@ -131,9 +131,7 @@ class SearchForm(forms.ModelForm):
                 self.cleaned_data["num_children"] < 0
                 or self.cleaned_data["num_children"] > 5
             ):
-                raise ValidationError(
-                    'Некорректное значение в поле "Количество детей" (не более 5)'
-                )
+                raise ValidationError("Не более 5 детей")
             return self.cleaned_data["num_children"]
 
     def clean_telegr_acc(self):
@@ -143,10 +141,10 @@ class SearchForm(forms.ModelForm):
         elif len(self.cleaned_data["telegr_acc"]) < 6:
             raise ValidationError("Телеграм-аккаунт имеет длину не менее 6 символов")
         elif (
-            len(Search.objects.filter(telegr_acc=self.cleaned_data["telegr_acc"])) > 10
+            len(Search.objects.filter(telegr_acc=self.cleaned_data["telegr_acc"])) > 3
         ):
             raise ValidationError(
-                "Один пользователь может создавать не более 10 поисков!"
+                "Один пользователь может создавать не более 3 поисков!"
             )
         for i in self.cleaned_data["telegr_acc"][1:]:
             if i not in acc_symb:
