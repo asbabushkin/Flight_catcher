@@ -13,12 +13,12 @@ services:
             - type: volume
               source: catcher_vol
               target: /var/lib/postgresql/data
-
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -d flight_search -U alex"]
             interval: 3s
             timeout: 5s
             retries: 5
+        restart: unless-stopped
 
     backend:
         image: asbabushkin/flc:backend
@@ -29,7 +29,7 @@ services:
             HOST: database
             PORT: $PORT
             SECRET_KEY: $SECRET_KEY
-
+        restart: unless-stopped
         depends_on:
             database:
                 condition: service_healthy
@@ -45,6 +45,7 @@ services:
               source: ~/Progr/Flight_catcher_web/nginx/nginx.conf
               target: /etc/nginx/conf.d/nginx.conf
               read_only: true
+        restart: unless-stopped
         depends_on:
             database:
                 condition: service_healthy
@@ -63,48 +64,12 @@ services:
             TELEGRAM_HASH: $TELEGRAM_HASH
             TELEGRAM_USER_ID: $TELEGRAM_USER_ID
             TELEGRAM_USER_NAME: $TELEGRAM_USER_NAME
-
         ports:
             - 8000:8000
-
+        restart: unless-stopped
         depends_on:
             database:
                 condition: service_healthy
-
-
-#    backend-migrations:
-#        image: kcoursedocker/task-9.2-back:latest
-#        environment:
-#            PG_NAME: todo_list
-#            PG_USER: admin
-#            PG_PASSWORD: admin
-#            PG_HOST: database
-#        command: bash -c "make migrate"
-#        depends_on:
-#            database:
-#                condition: service_healthy
-#            backend:
-#                condition: service_started
-#
-#    backend-superuser:
-#        image: kcoursedocker/task-9.2-back:latest
-#        environment:
-#            PG_NAME: todo_list
-#            PG_USER: admin
-#            PG_PASSWORD: admin
-#            PG_HOST: database
-#            DJANGO_SUPERUSER_USERNAME: admin
-#            DJANGO_SUPERUSER_PASSWORD: admin
-#            DJANGO_SUPERUSER_EMAIL: admin@admin.com
-#        command: bash -c "make create-superuser"
-#
-#        depends_on:
-#            database:
-#                condition: service_healthy
-#            backend:
-#                condition: service_started
-#            backend-migrations:
-#                condition: service_started
 
 volumes:
   catcher_vol:
