@@ -164,3 +164,29 @@ STATIC_ROOT = BASE_DIR.joinpath("static")
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Constants
+AIRPORT_NAME_LENGTH = 50
+
+COUNTRY_NAME_LENGTH = 50
+
+CITY_NAME_LENGTH = 50
+
+IATA_CODE_LENGTH = 3
+
+ICAO_CODE_LENGTH = 4
+
+RUS_AIPORT_CODE = 3
+
+DOMESTIC = "внутренний"
+
+INTERNATIONAL = "международный"
+
+AIRPORT_TYPES = [
+    (DOMESTIC, "внутренний"),
+    (INTERNATIONAL, "междунарондый")
+]
+
+AIRPORT_TYPE_LENGTH = 13
+
+

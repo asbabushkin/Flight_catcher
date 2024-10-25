@@ -1,20 +1,8 @@
+from django.conf import settings as dj_settings
 from django.db import models
+from django.db.models import ForeignKey, CASCADE
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
-
-class AirportCode(models.Model):
-    airport_name = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    iata_code = models.CharField(max_length=3)
-    icao_code = models.CharField(max_length=4)
-    rus_code = models.CharField(max_length=3)
-    type = models.CharField(max_length=13)
-    webpage = models.URLField()
-
-    def __str__(self):
-        return self.airport_name
 
 
 class CityCode(models.Model):
@@ -25,6 +13,30 @@ class CityCode(models.Model):
 
     def __str__(self):
         return self.city_eng
+
+
+class AirportCode(models.Model):
+    airport_name = models.CharField(max_length=dj_settings.AIRPORT_NAME_LENGTH)
+    country = models.CharField(max_length=dj_settings.COUNTRY_NAME_LENGTH)
+    city = models.CharField(max_length=dj_settings.CITY_NAME_LENGTH)
+    city_pk = ForeignKey(CityCode, null=True, on_delete=models.CASCADE, related_name="airports")
+    iata_code = models.CharField(max_length=dj_settings.IATA_CODE_LENGTH)
+    icao_code = models.CharField(max_length=dj_settings.ICAO_CODE_LENGTH)
+    rus_code = models.CharField(max_length=dj_settings.RUS_AIPORT_CODE)
+    type = models.CharField(max_length=13)
+    airport_type = models.CharField(
+        null=True,
+        max_length=dj_settings.AIRPORT_TYPE_LENGTH,
+        choices=dj_settings.AIRPORT_TYPES,
+        default=dj_settings.DOMESTIC,
+    )
+    webpage = models.URLField()
+
+    def __str__(self):
+        return self.airport_name
+
+
+
 
 
 class Search(models.Model):

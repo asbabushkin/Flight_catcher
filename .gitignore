@@ -4,5 +4,7 @@
 /flight_catcher/data.py
 /flight_catcher/static/
 /flight_catcher/.idea/
+/flight_catcher/flight_catcher.session
 .env
 .env.prod
+flight_catcher.session
