@@ -1,0 +1,8 @@
+/fl_catcher_venv/
+/.idea/
+/static/
+/flight_catcher/data.py
+/flight_catcher/static/
+/flight_catcher/.idea/
+.env
+.env.prod
